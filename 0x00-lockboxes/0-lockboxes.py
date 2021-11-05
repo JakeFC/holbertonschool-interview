@@ -6,7 +6,9 @@ unlock_tracker = []
 
 def canUnlockAll(boxes):
     """Checks if all arrays can be unlocked inside matrix"""
-    if not boxes:
+    if len(boxes) == 0:
+        return False
+    if type(boxes) is not list:
         return False
     global unlock_tracker
     unlock_tracker = [False] * len(boxes)
