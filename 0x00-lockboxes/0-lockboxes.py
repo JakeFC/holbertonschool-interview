@@ -22,6 +22,6 @@ def Unlock(boxes=[[]], box=0):
     if (len(boxes[box]) == 0):
         return
     for i in boxes[box]:
-        if unlock_tracker[i] is False:
+        if i < len(boxes) and unlock_tracker[i] is False:
             unlock_tracker[i] = True
             Unlock(boxes, i)
