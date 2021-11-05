@@ -4,10 +4,10 @@
 unlock_tracker = []
 
 
-def canUnlockAll(boxes=[[]]):
+def canUnlockAll(boxes):
     """Checks if all arrays can be unlocked inside matrix"""
     if len(boxes) == 0:
-        return False
+        return True
     global unlock_tracker
     unlock_tracker = [False] * len(boxes)
     unlock_tracker[0] = True
@@ -17,7 +17,7 @@ def canUnlockAll(boxes=[[]]):
     return True
 
 
-def Unlock(boxes=[[]], box=0):
+def Unlock(boxes, box):
     """Unlocks box at given index and each of its keys' boxes"""
     if len(boxes[box]) == 0:
         return
