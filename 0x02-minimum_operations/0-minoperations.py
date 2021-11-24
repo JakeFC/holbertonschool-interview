@@ -14,5 +14,5 @@ def minOperations(n):
             copied = m
         else:
             m += copied
-        ops += 1    
+        ops += 1
     return ops
