@@ -11,18 +11,18 @@
  */
 static void print_grid(int grid[3][3])
 {
-    int i, j;
+	int i, j;
 
-    for (i = 0; i < 3; i++)
-    {
-        for (j = 0; j < 3; j++)
-        {
-            if (j)
-                printf(" ");
-            printf("%d", grid[i][j]);
-        }
-        printf("\n");
-    }
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			if (j)
+				printf(" ");
+			printf("%d", grid[i][j]);
+		}
+		printf("\n");
+	}
 }
 
 /**
@@ -32,18 +32,54 @@ static void print_grid(int grid[3][3])
  */
 static bool stability_check(int grid[3][3])
 {
-    int y, x;
+	int y, x;
 
-    for (y = 0; y < 3; y++)
-    {
-        for (x = 0; x < 3; x++)
-        {
-            if (grid[y][x] > 3)
-                return false;
-        }
-    }
+	for (y = 0; y < 3; y++)
+	{
+		for (x = 0; x < 3; x++)
+		{
+			if (grid[y][x] > 3)
+				return (false);
+		}
+	}
 
-    return true;
+	return (true);
+}
+
+/**
+ * collapse - Processes one iteration of sandpile collapses
+ * @grid: 3x3 sandpile grid
+ */
+static void collapse(int grid[3][3])
+{
+	int x, y;
+	int tgrid[3][3];
+
+	for (y = 0; y < 3; y++)
+	{
+		for (x = 0; x < 3; x++)
+		{
+			tgrid[y][x] = grid[y][x];
+		}
+	}
+	for (y = 0; y < 3; y++)
+	{
+		for (x = 0; x < 3; x++)
+		{
+			if (tgrid[y][x] > 3)
+			{
+				grid[y][x] -= 4;
+				if (y > 0)
+					grid[y - 1][x] += 1;
+				if (y < 2)
+					grid[y + 1][x] += 1;
+				if (x > 0)
+					grid[y][x - 1] += 1;
+				if (x < 2)
+					grid[y][x + 1] += 1;
+			}
+		}
+	}
 }
 
 /**
@@ -53,51 +89,25 @@ static bool stability_check(int grid[3][3])
  */
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
-    int x, y;
-    bool stable;
-    int tgrid[3][3];
+	int x, y;
+	bool stable;
 
-    stable = true;
-    for (y = 0; y < 3; y++)
-    {
-        for (x = 0; x < 3; x++)
-        {
-            grid1[y][x] += grid2[y][x];
-            if (grid1[y][x] > 3)
-                stable = false;
-        }
-    }
+	stable = true;
+	for (y = 0; y < 3; y++)
+	{
+		for (x = 0; x < 3; x++)
+		{
+			grid1[y][x] += grid2[y][x];
+			if (grid1[y][x] > 3)
+				stable = false;
+		}
+	}
 
-    while (!stable)
-    {
-        puts("=");
-        print_grid(grid1);
-        stable = true;
-        for (y = 0; y < 3; y++)
-        {
-            for (x = 0; x < 3; x++)
-            {
-                tgrid[y][x] = grid1[y][x];
-            }
-        }
-        for (y = 0; y < 3; y++)
-        {
-            for (x = 0; x < 3; x++)
-            {
-                if (tgrid[y][x] > 3)
-                {
-                    grid1[y][x] -= 4;
-                    if (y > 0)
-                        grid1[y - 1][x] += 1;
-                    if (y < 2)
-                        grid1[y + 1][x] += 1;
-                    if (x > 0)
-                        grid1[y][x - 1] += 1;
-                    if (x < 2)
-                        grid1[y][x + 1] += 1;
-                }
-            }
-        }
-        stable = stability_check(grid1);
-    }
+	while (!stable)
+	{
+		puts("=");
+		print_grid(grid1);
+		collapse(grid1);
+		stable = stability_check(grid1);
+	}
 }
