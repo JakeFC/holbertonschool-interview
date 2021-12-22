@@ -24,6 +24,8 @@ int fix_list(listint_t **one, listint_t **middle, listint_t **two)
 		t_previous = t_current;
 		t_current = t_next;
 	}
+	if (o_current->n != t_current->n)
+		result = 0;
 	t_current->next = t_previous;
 	if (*middle)
 		o_current->next = *middle;
@@ -42,7 +44,11 @@ int is_palindrome(listint_t **head)
 	listint_t *previous, *current, *next, *middle;
 	int x, size = 0;
 
+	if (!*head)
+		return (1);
 	current = *head;
+	if (!current->next)
+		return (1);
 	while (current)
 	{
 		size++;
