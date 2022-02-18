@@ -1,10 +1,12 @@
 #include "menger.h"
 
 /**
- * createSizesArray - fills the array of given level with the size of each
+ * createSizesArray - Creates and fills an array of each square's size in
+ * a menger Sponge with given level
  * square which makes up the Menger Sponge
  *
- * @level: what level Menger Sponge this is
+ * @level: What level Menger Sponge we're working with
+ * Return: The created array of sizes
  */
 int *createSizesArray(int level)
 {
