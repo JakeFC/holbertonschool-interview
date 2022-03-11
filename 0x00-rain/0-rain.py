@@ -5,9 +5,6 @@
 def rain(walls):
     """Returns integer amount of rainwater retained by walls"""
 
-    if len(walls) == 0:
-        return 0
-
     water, left, spaces = 0, 0, 0
 
     for height in walls:
