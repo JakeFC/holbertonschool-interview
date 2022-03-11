@@ -18,7 +18,7 @@ def rain(walls):
                 """If left has already been set, add the total water, which is the number
                 of spaces between walls multiplied by the height of the lowest
                 wall"""
-                water += max(left, height) * spaces
+                water += min(left, height) * spaces
             """height is the height of the new left wall"""
             left = height
             spaces = 0
