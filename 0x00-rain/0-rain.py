@@ -5,22 +5,19 @@
 def rain(walls):
     """Returns integer amount of rainwater retained by walls"""
 
-    if walls is None:
-        return
-
     water, left, spaces = 0, 0, 0
 
-    for n in walls:
+    for height in walls:
 
-        if (n != 0):
+        if (height != 0):
             """If this is a wall"""
             if (left != 0):
                 """If left has already been set, add the total water, which is the number
                 of spaces between walls multiplied by the height of the lowest
                 wall"""
-                water += (left * spaces) if left < n else (n * spaces)
+                water += (left * spaces) if left < height else (height * spaces)
             """n is the height of the new left wall"""
-            left = n
+            left = height
             spaces = 0
 
         elif (left != 0):
