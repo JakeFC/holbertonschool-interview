@@ -8,13 +8,20 @@ def rotate_2d_matrix(matrix):
     if (not matrix):
         return
 
+    start = 0
+    end = len(matrix[0])
+
+    """Mirror the array from bottom left to top right"""
     for y in range(len(matrix)):
 
-        for x in range(len(matrix[0])):
+        for x in range(start, end):
 
             tmp = matrix[x][y]
             matrix[x][y] = matrix[y][x]
             matrix[y][x] = tmp
 
+        start += 1
+
+    """Mirror the array from left to right"""
     for row in matrix:
         row.reverse()
