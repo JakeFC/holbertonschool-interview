@@ -8,27 +8,36 @@ def isWinner(x, nums):
     numbers."""
 
     maria, ben, primes = 0, 0, 0
-    factors = []
+    factors, winners = [], ['b', 'b', 'm']
+    """Winners array is pre-filled for values 0-2"""
+    current = 'm'
+
+    maxN = max(nums)
+    for n in range(3, maxN + 1, 2):
+        """All prime numbers after 2 are odd. Evens can be skipped"""
+
+        if (n % 5 == 0 and n != 5):
+            """Multiples of 5 aren't prime and can be skipped"""
+            winners += [current] * 2
+            continue
+        for f in factors:
+            if n % f is 0:
+                """Any number divisible by a found factor isn't prime"""
+                winners += [current] * 2
+                break
+        else:
+            factors.append(n)
+            """Any seen prime numbers are factors."""
+            current = 'b' if current == 'm' else 'm'
+            """Change current winner on finding a prime number"""
+            winners += [current] * 2
 
     for i in range(x):
-        for n in range(2, nums[i] + 1, 2):
-            """Prime numbers start on 2 and are odd"""
-
-            for f in factors:
-                if n % f is 0:
-                    break
+        for n in range(nums[i]):
+            if winners[nums[i]] == 'b':
+                ben += 1
             else:
-                factors.append(n)
-                primes += 1
-                """Any seen prime numbers are factors. Our first number
-                starting on 2 will always be prime."""
-                
-        if primes % 2 is 0:
-            ben += 1
-        else:
-            maria += 1
-        primes = 0
-        factors = []
+                maria += 1
 
     if maria == ben:
         return None
