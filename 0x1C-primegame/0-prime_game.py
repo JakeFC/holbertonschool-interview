@@ -7,37 +7,29 @@ def isWinner(x, nums):
     of rounds and nums being an array of ranges within which to choose prime
     numbers."""
 
-    maria, ben, primes, maxFactor = 0, 0, 0, 0
-    maxFactors = [3, 10, 31, 100]
+    maria, ben, primes = 0, 0, 0
+    factors = []
 
     for i in range(x):
-        max = nums[i]
+        for n in range(2, nums[i] + 1, 2):
+            """Prime numbers start on 2 and are odd"""
 
-        """The maximum factor for a non-prime number within a range is
-        the square root of the maximum number. Short of a sqrt function,
-        these are values pre-set for number of digits"""
-        if max / 10 <= 1:
-            maxFactor = maxFactors[0]
-        elif max / 10 <= 10:
-            maxFactor = maxFactors[1]
-        elif max / 10 <= 100:
-            maxFactor = maxFactors[2]
-        elif max / 10 <= 1000:
-            maxFactor = maxFactors[3]
-
-        for n in range(2, max + 1):
-            """Prime numbers start on 2"""
-            for f in range(2, maxFactor + 1):
-                """Factors for non-prime numbers start on 2"""
-                if n != f and n % f is 0:
+            for f in factors:
+                if n % f is 0:
                     break
             else:
+                factors.append(n)
                 primes += 1
+                """Any seen prime numbers are factors. Our first number
+                starting on 2 will always be prime."""
+                
         if primes % 2 is 0:
             ben += 1
         else:
             maria += 1
         primes = 0
+        factors = []
+
     if maria == ben:
         return None
     return "Maria" if maria > ben else "Ben"
