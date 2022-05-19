@@ -33,8 +33,8 @@ def isWinner(x, nums):
             winners += [current] * 2
 
     for i in range(x):
-        for n in range(nums[i]):
-            if winners[nums[i]] == 'b':
+        for n in nums:
+            if winners[n] == 'b':
                 ben += 1
             else:
                 maria += 1
