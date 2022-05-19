@@ -27,7 +27,7 @@ def isWinner(x, nums):
 
         for n in range(2, max + 1):
             """Prime numbers start on 2"""
-            for f in range(2, maxFactor):
+            for f in range(2, maxFactor + 1):
                 """Factors for non-prime numbers start on 2"""
                 if n % f is 0:
                     break
