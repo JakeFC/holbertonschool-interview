@@ -30,7 +30,8 @@ def isWinner(x, nums):
             for f in range(2, maxFactor):
                 """Factors for non-prime numbers start on 2"""
                 if n % f is 0:
-                    continue
+                    break
+            else:
                 primes += 1
         if primes % 2 is 0:
             ben += 1
